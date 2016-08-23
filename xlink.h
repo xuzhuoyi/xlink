@@ -15,6 +15,13 @@ public:
     explicit Xlink(QWidget *parent = 0);
     ~Xlink();
 
+private slots:
+    void on_pButtonOpen_clicked();
+
+    void on_pButtonConnect_clicked();
+
+    void on_pButtonSetup_clicked();
+
 private:
     Ui::Xlink *ui;
 };
