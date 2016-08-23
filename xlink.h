@@ -24,6 +24,9 @@ private slots:
 
 private:
     Ui::Xlink *ui;
+
+    QString m_fileName;
+    QString m_configFileName;
 };
 
 #endif // XLINK_H
