@@ -2,7 +2,6 @@
 #include "ui_xlink.h"
 
 #include <QFileDialog>
-#include <QProcess>
 
 Xlink::Xlink(QWidget *parent) :
     QWidget(parent),
@@ -25,12 +24,12 @@ void Xlink::on_pButtonOpen_clicked()
 
 void Xlink::on_pButtonConnect_clicked()
 {
-    QString program = "opnocd";
+    QString program = "openocd";
     QStringList arguments;
     arguments << "-f" << m_configFileName;
-    QProcess *process = new QProcess();
-    process->setArguments(arguments);
-    process->start(program, arguments);
+    m_pProcess = new QProcess();
+    connect(m_pProcess, SIGNAL(readyReadStandardError()), this, SLOT(readLog()));
+    m_pProcess->start(program, arguments);
 }
 
 void Xlink::on_pButtonSetup_clicked()
@@ -38,4 +37,9 @@ void Xlink::on_pButtonSetup_clicked()
     m_configFileName = QFileDialog::getOpenFileName(this, tr("打开设备配置文件"), "/", tr("配置文件(*.cfg)"));
     if (m_configFileName.length() != 0)
         ui->labelStatus->setText(tr("已打开配置文件文件:") + m_fileName);
+}
+
+void Xlink::readLog()
+{
+    ui->textBrowser->append(m_pProcess->readAllStandardError());
 }

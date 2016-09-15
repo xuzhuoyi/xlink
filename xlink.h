@@ -2,6 +2,7 @@
 #define XLINK_H
 
 #include <QWidget>
+#include <QProcess>
 
 namespace Ui {
 class Xlink;
@@ -21,12 +22,14 @@ private slots:
     void on_pButtonConnect_clicked();
 
     void on_pButtonSetup_clicked();
+    void readLog();
 
 private:
     Ui::Xlink *ui;
 
     QString m_fileName;
     QString m_configFileName;
+    QProcess *m_pProcess;
 };
 
 #endif // XLINK_H
